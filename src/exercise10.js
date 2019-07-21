@@ -3,7 +3,8 @@ import React, { Fragment } from 'react';
 export class Practice10 extends React.Component {
     // iniciar un objeto state 
     state = {
-        count: 0
+        count: 0,
+        isActive: false
     }
     
     handleAdd = (e) => {
@@ -24,7 +25,12 @@ export class Practice10 extends React.Component {
             count: 0
         })
     }
-
+    
+    handleMsg = (e) => {
+        this.setState({
+            isActive: !this.state.isActive
+        })
+    }
 
     render(){
         return(
@@ -34,6 +40,7 @@ export class Practice10 extends React.Component {
                 <Boton funcion={e => this.handleRest(e)} text={'resta'}/>
                 <Boton funcion={e => this.handleReset(e)} text={'resetear'}/>
                 <Counter valor={this.state.count}/>
+                <Msg msg={e => this.handleMsg(e)} active={this.state.isActive}/>
             </Fragment>
         );
     }
@@ -55,4 +62,13 @@ const Counter = (props) => {
             <h1>Unidades: {props.valor}</h1>
         </Fragment>
     )
+}
+
+const Msg = (props) => {
+    return(
+        <Fragment>
+            {/* mediante props puedo actualizar el padre y utilizar ternarios */}
+            <button onClick={props.msg}>{props.active ? 'on' : 'off'}</button>
+        </Fragment>
+    );
 }
